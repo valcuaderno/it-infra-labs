@@ -1,1 +1,191 @@
+# Day 1: Linux Networking and Troubleshooting
+
+## 1. Overview
+
+**Project:** Linux Networking Fundamentals  
+**Roadmap:** 180-Day Network and Systems Engineer / Network Security Roadmap  
+**Lab day:** Day 1  
+**Platform:** VMware Workstation Pro  
+**Operating system:** Ubuntu Linux  
+**Supporting tools:** Linux terminal, iproute2, ping, curl, systemd-resolved, ss
+
+## 2. Objectives
+
+- Identify Linux network interfaces and assigned IP addresses.
+- Inspect the routing table and default gateway.
+- Verify local, gateway, and external connectivity.
+- Investigate DNS resolution and HTTPS connectivity.
+- Inspect listening sockets, services, and system logs.
+- Document findings using a structured troubleshooting process.
+
+## 3. Lab Environment
+
+| Component | Configuration |
+|---|---|
+| Hypervisor | VMware Workstation Pro |
+| Virtual machine | Ubuntu |
+| Network mode | NAT |
+| Interface name | [Actual interface name] |
+| IPv4 address | [Actual address/prefix] |
+| Default gateway | [Actual gateway] |
+| DNS configuration | [Observed DNS server/resolver] |
+
+**Note:** Values are taken from the actual lab environment. Do not use example values as real results.
+
+## 4. Implementation
+
+### Step 1: Inspect the operating system
+
+Commands:
+
+```bash
+cat /etc/os-release
+hostnamectl
+```
+
+**Result:** [Record OS version and hostname.]
+
+### Step 2: Inspect network interfaces
+
+Commands:
+
+```bash
+ip -br link
+ip -br addr
+ip addr
+```
+
+**Result:** [Record interface names, link state, and assigned addresses.]
+
+### Step 3: Inspect routing
+
+Commands:
+
+```bash
+ip route
+ip route show default
+ip route get 1.1.1.1
+```
+
+**Result:** [Record default gateway, outbound interface, and selected source IP.]
+
+### Step 4: Test connectivity
+
+Commands:
+
+```bash
+ping -c 4 127.0.0.1
+ping -c 4 <YOUR_GATEWAY_IP>
+ping -c 4 1.1.1.1
+ping -c 4 example.com
+```
+
+**Result:** [Record packet loss, responses, and any failures.]
+
+Note: ICMP failures alone do not prove that TCP connectivity is unavailable.
+
+### Step 5: Test DNS and HTTPS
+
+Commands:
+
+```bash
+resolvectl status
+getent hosts example.com
+curl -I --connect-timeout 10 https://example.com
+```
+
+**Result:** [Record DNS resolution and HTTP response status.]
+
+### Step 6: Inspect listening services
+
+Commands:
+
+```bash
+ss -tulpn
+systemctl --type=service --state=running
+journalctl -b -p warning --no-pager
+```
+
+**Result:** [Record relevant listening sockets, services, and warnings.]
+
+## 5. Troubleshooting Report
+
+### Problem
+
+[Describe the symptom, or write "No connectivity issue observed during the initial tests."]
+
+### Symptoms
+
+- [Observed symptom 1]
+- [Observed symptom 2]
+
+### Investigation
+
+1. Checked the virtual machine's network adapter.
+2. Inspected interface state and IP addressing.
+3. Checked the default route.
+4. Tested gateway and external connectivity.
+5. Checked DNS and HTTPS.
+6. Reviewed relevant service status and logs.
+
+**Evidence collected:** [Commands, outputs, and screenshots.]
+
+### Root Cause
+
+[State the confirmed root cause, or write "No fault reproduced" if all checks passed. Do not guess.]
+
+### Resolution
+
+[Describe the actual change made, or write "No corrective change required."]
+
+### Verification
+
+| Test | Expected outcome | Actual result | Status |
+|---|---|---|---|
+| Loopback ping | Replies received | [Result] | [Pass/Fail] |
+| Gateway test | Gateway responds if ICMP allowed | [Result] | [Pass/Fail/Filtered] |
+| External IP test | External connectivity verified | [Result] | [Pass/Fail/Inconclusive] |
+| DNS lookup | Hostname resolves | [Result] | [Pass/Fail] |
+| HTTPS request | HTTP response received | [Result] | [Pass/Fail] |
+
+## 6. Screenshots and Evidence
+
+- `screenshots/01-vm-settings.png` — VMware network adapter configuration.
+- `screenshots/02-ip-address.png` — Network interface and IP addressing.
+- `screenshots/03-routing.png` — Routing table and default gateway.
+- `screenshots/04-connectivity-tests.png` — Connectivity and DNS results.
+
+Screenshots are sanitized and contain no credentials or confidential information.
+
+## 7. Lessons Learned
+
+- Linux interface state and IP addressing are different from end-to-end connectivity.
+- The routing table determines how outbound traffic is forwarded.
+- DNS resolution must be distinguished from IP reachability.
+- ICMP filtering can make ping inconclusive.
+- Evidence should be collected before modifying a configuration.
+- Every corrective action should be followed by a verification test.
+
+## 8. Skills Demonstrated
+
+- Linux command-line administration
+- IP addressing and routing fundamentals
+- DNS troubleshooting
+- Connectivity testing
+- Service and socket inspection
+- System log analysis
+- Technical documentation
+
+## 9. Next Steps
+
+- Practise Linux network troubleshooting with a second VM.
+- Learn packet capture with tcpdump and Wireshark.
+- Build a dedicated isolated virtual network.
+- Document a reproducible DNS or routing fault and its resolution.
+
+## 10. References
+
+- Ubuntu Networking Documentation: https://ubuntu.com/server/docs/how-to/networking/
+- Ubuntu DNS Documentation: https://ubuntu.com/server/docs/how-to/networking/install-dns/
+- Ubuntu Command-Line Reference: https://ubuntu.com/server/docs/reference/cli-cheatsheet/
 
