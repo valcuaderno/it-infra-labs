@@ -1,0 +1,21 @@
+Week 4 - Lab 1: Capture and Identify Network Traffic
+
+Tools:
+Wireshark
+Windows PC
+
+Traffic identified:
+1. ICMP Echo Request
+2. ICMP Echo Reply
+3. DNS Query
+4. DNS Response
+5. TCP SYN
+6. TCP SYN-ACK
+7. TCP ACK
+
+TCP 3-Way Handshake:
+SYN -> SYN-ACK -> ACK
+
+Result:
+Successfully captured and identified ICMP, DNS,
+and TCP traffic using Wireshark.
